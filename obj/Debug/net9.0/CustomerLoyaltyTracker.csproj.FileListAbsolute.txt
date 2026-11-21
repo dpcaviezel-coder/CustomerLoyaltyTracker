@@ -1,0 +1,14 @@
+C:\Users\dpcav\source\MyProjects\CustomerLoyaltyTracker\CustomerLoyaltyTracker\obj\Debug\net9.0\CustomerLoyaltyTracker.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dpcav\source\MyProjects\CustomerLoyaltyTracker\CustomerLoyaltyTracker\obj\Debug\net9.0\CustomerLoyaltyTracker.AssemblyInfoInputs.cache
+C:\Users\dpcav\source\MyProjects\CustomerLoyaltyTracker\CustomerLoyaltyTracker\obj\Debug\net9.0\CustomerLoyaltyTracker.AssemblyInfo.cs
+C:\Users\dpcav\source\MyProjects\CustomerLoyaltyTracker\CustomerLoyaltyTracker\obj\Debug\net9.0\CustomerLoyaltyTracker.csproj.CoreCompileInputs.cache
+C:\Users\dpcav\source\MyProjects\CustomerLoyaltyTracker\CustomerLoyaltyTracker\bin\Debug\net9.0\CustomerLoyaltyTracker.exe
+C:\Users\dpcav\source\MyProjects\CustomerLoyaltyTracker\CustomerLoyaltyTracker\bin\Debug\net9.0\CustomerLoyaltyTracker.deps.json
+C:\Users\dpcav\source\MyProjects\CustomerLoyaltyTracker\CustomerLoyaltyTracker\bin\Debug\net9.0\CustomerLoyaltyTracker.runtimeconfig.json
+C:\Users\dpcav\source\MyProjects\CustomerLoyaltyTracker\CustomerLoyaltyTracker\bin\Debug\net9.0\CustomerLoyaltyTracker.dll
+C:\Users\dpcav\source\MyProjects\CustomerLoyaltyTracker\CustomerLoyaltyTracker\bin\Debug\net9.0\CustomerLoyaltyTracker.pdb
+C:\Users\dpcav\source\MyProjects\CustomerLoyaltyTracker\CustomerLoyaltyTracker\obj\Debug\net9.0\CustomerLoyaltyTracker.dll
+C:\Users\dpcav\source\MyProjects\CustomerLoyaltyTracker\CustomerLoyaltyTracker\obj\Debug\net9.0\refint\CustomerLoyaltyTracker.dll
+C:\Users\dpcav\source\MyProjects\CustomerLoyaltyTracker\CustomerLoyaltyTracker\obj\Debug\net9.0\CustomerLoyaltyTracker.pdb
+C:\Users\dpcav\source\MyProjects\CustomerLoyaltyTracker\CustomerLoyaltyTracker\obj\Debug\net9.0\CustomerLoyaltyTracker.genruntimeconfig.cache
+C:\Users\dpcav\source\MyProjects\CustomerLoyaltyTracker\CustomerLoyaltyTracker\obj\Debug\net9.0\ref\CustomerLoyaltyTracker.dll
