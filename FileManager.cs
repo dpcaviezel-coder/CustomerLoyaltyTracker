@@ -4,40 +4,41 @@ namespace CustomerLoyaltyTracker
 {
     public class FileManager
     {
-        private Customer Customer { get; set; }
-        private CustomerManager Manager { get; set; }
-
-        public FileManager(Customer customer, CustomerManager manager)
+        public void SaveToJson(
+            List<Customer> customers)
         {
-            Customer = customer;
-            Manager = manager;
+            string json =
+                JsonSerializer.Serialize(
+                    customers,
+                    new JsonSerializerOptions
+                    {
+                        WriteIndented = true
+                    });
+
+            File.WriteAllText(
+                "customers.json",
+                json);
+
+            Console.WriteLine(
+                "Customers saved.");
         }
 
-        public void SaveToJson(Customer customer)
+        public List<Customer> LoadFromJson()
         {
-            string json = JsonSerializer.Serialize(customer);
-            File.WriteAllText("customer.json", json);
-            Console.WriteLine($"{customer.Name} successfully saved to json.");
-        }
+            if (!File.Exists(
+                "customers.json"))
+            {
+                return new List<Customer>();
+            }
 
-        public void LoadFromJson(Customer customer)
-        {
-            string json = File.ReadAllText("customer.json");
-            Customer loadedCustomer = JsonSerializer.Deserialize<Customer>(json);
-            if (loadedCustomer != null)
-            {
-                customer.Id = loadedCustomer.Id;
-                customer.Name = loadedCustomer.Name;
-                customer.Email = loadedCustomer.Email;
-                customer.PhoneNumber = loadedCustomer.PhoneNumber;
-                customer.LoyaltyPoints = loadedCustomer.LoyaltyPoints;
-                customer.IsActiveMember = loadedCustomer.IsActiveMember;
-                Console.WriteLine($"{customer.Name} successfully loaded from json.");
-            }
-            else
-            {
-                Console.WriteLine("Failed to load customer from json.");
-            }
+            string json =
+                File.ReadAllText(
+                    "customers.json");
+
+            return
+                JsonSerializer.Deserialize<List<Customer>>(
+                    json)
+                ?? new List<Customer>();
         }
     }
 }

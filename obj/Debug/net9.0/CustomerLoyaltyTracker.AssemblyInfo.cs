@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CustomerLoyaltyTracker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee1e950ca344cba4273d30fdea4cad8bf82ee300")]
 [assembly: System.Reflection.AssemblyProductAttribute("CustomerLoyaltyTracker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CustomerLoyaltyTracker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -4,167 +4,120 @@ namespace CustomerLoyaltyTracker
 {
     public class CustomerManager
     {
-        public List<Customer> list = new List<Customer>();
+        public List<Customer> Customers { get; } =
+            new();
 
-
-        // Needs manual input for Customer information 
         public void AddCustomer(Customer customer)
         {
-            list.Add(customer();
-        }
-        // also needs fixing...
-        public void RemoveCustomer(Customer customer)
-        {
-            list.Remove(customer);
-        }
-        // And so does this.
-        public void EditCustomer(Customer customer)
-        {
-            list.Insert(0, customer);
+            Customers.Add(customer);
         }
 
-        public void SearchCustomer(Customer customer)
+        public void RemoveCustomer(Customer customer)
         {
-            Console.Write("Search the customer's by their ID number:");
-            string? input = Console.ReadLine();
-            if (string.IsNullOrEmpty(input) || !int.TryParse(input, out int IdNumber))
-            {
-                Console.WriteLine("You entered invalid characters.");
-            }
-            else
-            {
-                Console.WriteLine($"{IdNumber} == {customer.Id} Customer's Name: {customer.Name}");
-            }
+            Customers.Remove(customer);
+        }
+
+        public Customer? SearchCustomer(int id)
+        {
+            return Customers.FirstOrDefault(
+                c => c.Id == id);
         }
 
         public void DisplayCustomer(Customer customer)
         {
-            Console.WriteLine("\n========== Customer Info ===========");
-            Console.WriteLine($"ID: {customer.Id}");
+            Console.WriteLine("\n===== CUSTOMER =====");
+
+            Console.WriteLine($"Id: {customer.Id}");
             Console.WriteLine($"Name: {customer.Name}");
             Console.WriteLine($"Email: {customer.Email}");
-            Console.WriteLine($"Phone Number: {customer.PhoneNumber}");
-            Console.WriteLine($"Loyalty Points: {customer.LoyaltyPoints}");
-            Console.WriteLine($"Active Member: {customer.IsActiveMember}");
-            Console.WriteLine("======================================\n");
-        }
+            Console.WriteLine($"Phone: {customer.PhoneNumber}");
+            Console.WriteLine($"Points: {customer.LoyaltyPoints}");
+            Console.WriteLine($"Tier: {customer.Tier}");
+            Console.WriteLine($"Active: {customer.IsActiveMember}");
 
+            Console.WriteLine("====================");
+        }
 
         public void DisplayAllCustomers()
         {
-            foreach (Customer customer in list)
+            foreach (var customer in Customers)
             {
-                Console.WriteLine("\n---------------------------------");
-                Console.WriteLine($"ID: {customer.Id}");
-                Console.WriteLine($"Name: {customer.Name}");
-                Console.WriteLine($"Email: {customer.Email}");
-                Console.WriteLine($"Phone Number: {customer.PhoneNumber}");
-                Console.WriteLine($"Loyalty Points: {customer.LoyaltyPoints}");
-                Console.WriteLine($"Active Member: {customer.IsActiveMember}");
-                Console.WriteLine("---------------------------------\n");
+                DisplayCustomer(customer);
             }
         }
 
-
-        public void AwardPoints(Customer customer)
+        public void AwardPoints(
+            Customer customer,
+            int points)
         {
-            Console.Write("Enter amount of Loyalty Points customer is to receive: ");
-            string? input = Console.ReadLine();
-            if (string.IsNullOrEmpty(input) || !int.TryParse(input, out int awardPoints))
-            {
-                Console.WriteLine("You entered invalid characters");
-            }
-            else
-            {
-                customer.LoyaltyPoints = awardPoints;
-                Console.WriteLine($"{customer.Name} received {awardPoints}");
-            }
+            customer.LoyaltyPoints += points;
+
+            CalculateTier(customer);
         }
 
-
-        public void RedeemPoints(Customer customer)
+        public void RedeemPoints(
+            Customer customer,
+            int points)
         {
-            Console.Write("Enter amount of Loyalty Points:");
-            string? input = Console.ReadLine();
-            if (string.IsNullOrEmpty(input) || !int.TryParse(input, out int output))
-            {
-                Console.WriteLine("You entered invalid characters");
-                return;
-            }
-            if (customer.LoyaltyPoints <= 0)
-            {
-                Console.WriteLine("You have no Loyalty Points to spend");
-            }
-            else
-            {
-                customer.LoyaltyPoints -= output;
-                Console.WriteLine($"Your remaining Loyalty Points: {customer.LoyaltyPoints}");
-            }
-        }
+            customer.LoyaltyPoints -= points;
 
+            if (customer.LoyaltyPoints < 0)
+            {
+                customer.LoyaltyPoints = 0;
+            }
+
+            CalculateTier(customer);
+        }
 
         public void GetTopCustomer()
         {
-            if (list.Count == 0)
-            {
-                Console.WriteLine("No customers available.");
-                return;
-            }
+            Customer? customer =
+                Customers
+                    .OrderByDescending(
+                        c => c.LoyaltyPoints)
+                    .FirstOrDefault();
 
-            Customer topCustomer = list.OrderByDescending(c => c.LoyaltyPoints).First();
-            Console.WriteLine("Top Customer:");
-            DisplayCustomer(topCustomer);
+            if (customer != null)
+            {
+                DisplayCustomer(customer);
+            }
         }
 
-        public void CalculateTier(Customer customer)
+        public void CalculateTier(
+            Customer customer)
         {
-            if (customer.LoyaltyPoints > 999)
+            if (customer.LoyaltyPoints >= 1000)
             {
-                Console.WriteLine($"{customer.Tier} = Platinum");
+                customer.Tier =
+                    CustomerTier.Platinum;
             }
-            else if (customer.LoyaltyPoints > 499)
+            else if (customer.LoyaltyPoints >= 500)
             {
-                Console.WriteLine($"{customer.Tier} = Gold");
+                customer.Tier =
+                    CustomerTier.Gold;
             }
-            else if (customer.LoyaltyPoints > 99)
+            else if (customer.LoyaltyPoints >= 100)
             {
-                Console.WriteLine($"{customer.Tier} = Silver");
+                customer.Tier =
+                    CustomerTier.Silver;
             }
             else
             {
-                Console.WriteLine($"{customer.Tier} = Bronze");
+                customer.Tier =
+                    CustomerTier.Bronze;
             }
         }
 
-        public void DisplayStatistics(Customer customer, List<Customer> list)
+        public void DisplayStatistics()
         {
-            int totalCustomers = list.Count;
-            int activeMembers = list.Count(c => c.IsActiveMember);
-            int totalLoyaltyPoints = list.Sum(c => c.LoyaltyPoints);
-            Customer? highestPointCustomer = list.OrderByDescending(c => c.LoyaltyPoints).FirstOrDefault();
+            Console.WriteLine(
+                $"\nTotal Customers: {Customers.Count}");
 
-            Console.WriteLine("\n==== Customer Statistics: ====");
-            Console.WriteLine($"Total Customers: {totalCustomers}");
-            Console.WriteLine($"Active Members: {activeMembers}");
-            Console.WriteLine($"Total Loyalty Points: {totalLoyaltyPoints}");
-            if (highestPointCustomer != null)
-            {
-                Console.WriteLine($"Highest Point Customer: {highestPointCustomer.Name}");
-            }
-            else
-            {
-                Console.WriteLine("Highest Point Customer: N/A");
-            }
-        }
+            Console.WriteLine(
+                $"Active Members: {Customers.Count(c => c.IsActiveMember)}");
 
-        public void SortCustomerByPoints(List<Customer> list)
-        {
-            var sorted = list.OrderByDescending(c => c.LoyaltyPoints).ToList();
-            Console.WriteLine("Customer's order by Loyalty Points (Highest to Lowest):");
-            foreach (var customer in sorted)
-            {
-                Console.WriteLine($"ID: {customer.Id}, Name: {customer.Name}, Loyalty Points: {customer.LoyaltyPoints}");
-            }
+            Console.WriteLine(
+                $"Total Loyalty Points: {Customers.Sum(c => c.LoyaltyPoints)}");
         }
     }
 }
